@@ -1,23 +1,26 @@
 <?php
 
 use App\Livewire\Settings\Appearance;
-use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
 
+// The public site needs no account and must keep needing none.
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+/*
+ * The authenticated area. `zahir.entitlement` re-asks Zahir on every request,
+ * so a revoked grant closes access within one decision window rather than at
+ * the end of a session. The `verified` middleware is gone: email verification
+ * belongs to the identity provider now, and the local flag it checked no
+ * longer means anything.
+ */
+Route::middleware(['auth', 'zahir.entitlement'])->group(function () {
+    Route::view('dashboard', 'dashboard')->name('dashboard');
 
-Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
-
     Route::get('settings/profile', Profile::class)->name('settings.profile');
-    Route::get('settings/password', Password::class)->name('settings.password');
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
 

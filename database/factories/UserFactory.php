@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
@@ -12,29 +11,27 @@ use Illuminate\Support\Str;
 class UserFactory extends Factory
 {
     /**
-     * The current password being used by the factory.
-     */
-    protected static ?string $password;
-
-    /**
      * Define the model's default state.
+     *
+     * Every user is a projection of a Zahir account, so the factory mints an
+     * opaque account ID rather than a password. A factory that still produced
+     * credentials would let tests assert behaviour the application no longer
+     * has.
      *
      * @return array<string, mixed>
      */
     public function definition(): array
     {
         return [
+            'zahir_account_id' => 'acc_'.Str::lower(Str::ulid()),
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
+    /** The identity provider asserted an unverified address. */
     public function unverified(): static
     {
         return $this->state(fn (array $attributes) => [

@@ -7,9 +7,27 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Sifrious\AccountsClient\Contracts\AccountProjection;
 
-class User extends Authenticatable
+/**
+ * The local projection of a Zahir account.
+ *
+ * Not an authority on identity. It exists so sessions, preferences, and this
+ * site's own data have something local to hang from, and it is keyed by the
+ * opaque Zahir account ID under a unique index — two rows for one account would
+ * split a person's history at their second sign-in.
+ *
+ * `password` survives as a nullable column the framework's contracts still
+ * reference, but nothing writes it. Verification and recovery belong to the
+ * external provider.
+ */
+class User extends Authenticatable implements AccountProjection
 {
+    public function zahirAccountId(): string
+    {
+        return (string) $this->getAttribute('zahir_account_id');
+    }
+
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
@@ -19,9 +37,9 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'zahir_account_id',
         'name',
         'email',
-        'password',
     ];
 
     /**

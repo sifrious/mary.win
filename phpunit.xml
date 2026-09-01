@@ -19,6 +19,15 @@
     </source>
     <php>
         <env name="APP_ENV" value="testing"/>
+        <!-- Deterministic Zahir settings. Tests never reach a real service:
+             the conformance suite binds fakes, and everything else fakes the
+             entitlement decision. These exist so the container can build. -->
+        <env name="ZAHIR_BASE_URL" value="https://zahir.test"/>
+        <env name="ZAHIR_SERVICE_TOKEN" value="zhr.testing.token"/>
+        <env name="WORKOS_CLIENT_ID" value="client_testing"/>
+        <env name="WORKOS_CLIENT_SECRET" value="secret_testing"/>
+        <env name="WORKOS_CALLBACK_URLS" value="http://localhost/auth/callback"/>
+        <env name="WORKOS_POST_LOGOUT_URLS" value="http://localhost/"/>
         <env name="APP_MAINTENANCE_DRIVER" value="file"/>
         <env name="BCRYPT_ROUNDS" value="4"/>
         <env name="CACHE_STORE" value="array"/>
