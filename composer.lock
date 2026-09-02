@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae4c5d5abfa870836c417ea61530a6bd",
+    "content-hash": "35bdf56e515a3623c44dbd4a6764ab17",
     "packages": [
         {
             "name": "brick/math",
@@ -3550,11 +3550,11 @@
         },
         {
             "name": "sifrious/accounts-client",
-            "version": "dev-main",
+            "version": "0.1.0",
             "dist": {
-                "type": "path",
-                "url": "../dep-accounts-client",
-                "reference": "2ac23e017fe1a2da4218d068cefe03083eca07a6"
+                "type": "zip",
+                "url": "https://raw.githubusercontent.com/sifrious/composer-registry/main/dist/sifrious-accounts-client-0.1.0.zip",
+                "shasum": "da30873101eec3c601e509a2d6f773ef31722e7a"
             },
             "require": {
                 "firebase/php-jwt": "^7.1",
@@ -3562,10 +3562,6 @@
                 "illuminate/http": "^12.0||^13.0",
                 "illuminate/support": "^12.0||^13.0",
                 "php": "^8.3"
-            },
-            "require-dev": {
-                "phpstan/phpstan": "^2.2",
-                "phpunit/phpunit": "^12.5"
             },
             "type": "library",
             "extra": {
@@ -3581,38 +3577,10 @@
                     "Sifrious\\AccountsClient\\Testing\\": "testing/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Sifrious\\AccountsClient\\Tests\\": "tests/"
-                }
-            },
-            "scripts": {
-                "analyse": [
-                    "phpstan analyse --no-progress --memory-limit=512M"
-                ],
-                "check": [
-                    "@test",
-                    "@analyse",
-                    "@contracts"
-                ],
-                "conformance": [
-                    "phpunit --filter AuthenticationConformance"
-                ],
-                "contracts": [
-                    "php bin/verify-zahir-contracts"
-                ],
-                "test": [
-                    "phpunit"
-                ]
-            },
             "license": [
                 "proprietary"
             ],
-            "description": "Provider-neutral login and API client contracts for Zahir",
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "description": "Provider-neutral login and API client contracts for Zahir"
         },
         {
             "name": "symfony/clock",
@@ -9370,9 +9338,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "sifrious/accounts-client": 20
-    },
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
