@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\MailingListSubscription;
+use App\Services\MailingList\MailingListSyncer;
+use App\Services\MailingList\MailingListSyncException;
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -41,7 +45,40 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+/**
+ * Stand-in for a real email service provider, so the sync boundary can be
+ * exercised in both its healthy and its failing state.
+ */
+function fakeSyncer(bool $failing = false): object
 {
-    // ..
+    $syncer = new class($failing) implements MailingListSyncer
+    {
+        public array $subscribed = [];
+
+        public array $unsubscribed = [];
+
+        public function __construct(private bool $failing) {}
+
+        public function subscribe(MailingListSubscription $subscription): void
+        {
+            if ($this->failing) {
+                throw new MailingListSyncException('provider unavailable');
+            }
+
+            $this->subscribed[] = $subscription->email;
+        }
+
+        public function unsubscribe(MailingListSubscription $subscription): void
+        {
+            if ($this->failing) {
+                throw new MailingListSyncException('provider unavailable');
+            }
+
+            $this->unsubscribed[] = $subscription->email;
+        }
+    };
+
+    app()->instance(MailingListSyncer::class, $syncer);
+
+    return $syncer;
 }

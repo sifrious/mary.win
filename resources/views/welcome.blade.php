@@ -274,5 +274,8 @@
         @if (Route::has('login'))
             <div class="h-14.5 hidden lg:block"></div>
         @endif
+        <section class="w-full lg:max-w-4xl max-w-[335px] mt-10">
+            <x-mailing-list-signup />
+        </section>
     </body>
 </html>
