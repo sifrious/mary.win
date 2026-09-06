@@ -3,8 +3,8 @@
 *Shell design, not core. This is the "word composer": a tiny editor for a fixed four-letter
 field whose only output to the game is one candidate string, on submit. It holds accidental
 (control) state only — nothing here is persisted, and the game core never sees a cursor.
-Covers SPEC requirements R9–R22. Implementation belongs to the shell phase (tarpit-shell),
-after the pure core exists.*
+Covers SPEC requirements R9–R22 and R26. The web implementation is in
+`resources/views/components/layouts/game.blade.php`.*
 
 ## State (ephemeral, per turn)
 
@@ -36,11 +36,11 @@ Derived (advisory, recomputed on every change — the core re-checks everything 
 | backspace | clear at `cursor`; `cursor → max(cursor-1, 0)` | R11 |
 | click / tap a slot | `cursor →` that slot | R12 |
 | arrow left / right | `cursor →` clamp(cursor∓1, 0, 3) | R13 |
-| `h` / `l` | same as arrow left / right | R14 |
+| `1` / `2` / `3` / `4` | select the numbered box from the left, without editing letters or submitting | R26 |
 | *(becomes armed)* | `cursor → 'submit'` | R16 |
-| Enter / `s` / tap submit | if `armed`: emit `word` to the core | R18 |
+| Enter / tap submit | if `armed`: emit `word` to the core | R18 |
 
-Keys **`j` and `k` are unbound.** No timer anywhere; every transition above is local and
+All letter keys enter letters. Vim-style commands remain deferred. Ctrl, Command, and Alt combinations are left to the browser. No timer anywhere; every transition above is local and
 instant, so there is never a keystroke round-trip.
 
 ## The one crossing to the core
@@ -61,3 +61,9 @@ legal-looking-but-losing move; that tension is the game.
 Outline darker than fill darker than background holds in light mode via these tokens (R20);
 dark mode inverts through the same variables for free. The selected slot carries the game's
 home-page spectrum identity (Four Letter Words = `wgrad-1`, pink→peach).
+
+## Number selection
+
+`selectNumber` maps the displayed box number to the zero-based cursor. Focused hardware input uses `onFieldKey`; unfocused hardware input uses `onKey`. Phone edits reach `type` through `onEdit` or its fallback. Selection uses the existing outline/fill and an accessible label naming the letter, position, and selected state. Digits outside 1 through 4 do nothing. On the loss screen, shortcuts do nothing.
+
+Run `npm run test:game-input` for interaction checks against the production composer. Physical-device keyboard checks remain part of release verification.

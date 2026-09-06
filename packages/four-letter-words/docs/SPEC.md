@@ -34,6 +34,8 @@ changing exactly one letter of the previous word, with no repeats and no clock.
 | R24 | A | When a run ends and the player is signed in, the system also shows that player's best streak on the end screen. |
 | R25 | A | When a run ends and the player is not signed in, the system shows a prompt to sign up so results can be stored. |
 
+| R26 | E | Pressing 1, 2, 3, or 4 selects and highlights the corresponding box from the left. Digits do not change letters or submit. The next letter replaces the selected box. |
+
 ## Out of scope
 - Building a sign-in or identity system of the game's own — it uses the host site's existing accounts and adds none.
 - Remembering anything across sittings for a player who is not signed in — an anonymous run's summary vanishes on reload.
@@ -56,7 +58,7 @@ changing exactly one letter of the previous word, with no repeats and no clock.
 - Milestone 1 includes the per-run summary (R7) but not signed-in persistence (R22–R23), keeping accounts and storage out of the first slice.
 - The run log is the single record of a run's played words; the used-words check (R6) reads from it rather than from a separate stored set.
 - A run ends only by an illegal submit or by the player simply stopping; running out of legal moves is not detected.
-- The j and k keys are intentionally unbound; only h and l navigate.
+- Letter keys enter letters. Vim-style navigation remains deferred. Number keys 1 through 4 and arrow keys navigate.
 
 ## Vocabulary
 - **run**: one continuous chain of words, from the first word until the run ends.

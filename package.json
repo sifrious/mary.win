@@ -3,7 +3,8 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "test:game-input": "node --test tests/JavaScript/four-letter-words.test.mjs"
     },
     "dependencies": {
         "@tailwindcss/vite": "^4.1.11",

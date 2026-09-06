@@ -59,10 +59,16 @@
                 promptText() { return this.current === '' ? 'enter a word with 4 letters' : 'change one letter'; },
 
                 select(i) { this.cursor = i; },
+                selectNumber(ch) {
+                    if (this.status !== 'playing' || !/^[1-4]$/.test(ch)) return false;
+                    this.select(Number(ch) - 1);
+                    return true;
+                },
                 left() { if (this.cursor !== 'submit') this.cursor = Math.max(0, this.cursor - 1); },
                 right() { if (this.cursor !== 'submit') this.cursor = Math.min(3, this.cursor + 1); },
 
                 type(ch) {
+                    if (this.selectNumber(ch)) return;
                     ch = ch.toUpperCase();
                     if (!/^[A-Z]$/.test(ch)) return;
                     const at = this.cursor === 'submit' ? 3 : this.cursor;
@@ -127,19 +133,21 @@
                 // Only the keys that produce no edit event reach this; letters and backspace
                 // are onEdit's, and taking them here too would apply them twice.
                 onFieldKey(e) {
-                    if (this.status !== 'playing') return;
+                    if (this.status !== 'playing' || e.ctrlKey || e.metaKey || e.altKey) return;
                     const k = e.key;
-                    if (k === 'ArrowLeft') { e.preventDefault(); this.left(); }
+                    if (this.selectNumber(k)) { e.preventDefault(); }
+                    else if (k === 'ArrowLeft') { e.preventDefault(); this.left(); }
                     else if (k === 'ArrowRight') { e.preventDefault(); this.right(); }
                     else if (k === 'Enter') { e.preventDefault(); this.trySubmit(); }
                     else if (k === 'ArrowUp' || k === 'ArrowDown' || k === 'Home' || k === 'End') e.preventDefault();
                 },
 
                 onKey(e) {
-                    if (this.status !== 'playing') return; // let the end screen use the keyboard normally
+                    if (this.status !== 'playing' || e.ctrlKey || e.metaKey || e.altKey) return; // let the end screen use the keyboard normally
                     if (this.$refs.field && document.activeElement === this.$refs.field) return; // the field has it
                     const k = e.key;
-                    if (k === 'ArrowLeft') { e.preventDefault(); this.left(); }
+                    if (this.selectNumber(k)) { e.preventDefault(); }
+                    else if (k === 'ArrowLeft') { e.preventDefault(); this.left(); }
                     else if (k === 'ArrowRight') { e.preventDefault(); this.right(); }
                     else if (k === 'Backspace') { e.preventDefault(); this.backspace(); }
                     else if (k === 'Enter') { e.preventDefault(); this.trySubmit(); }

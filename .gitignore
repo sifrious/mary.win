@@ -6,7 +6,8 @@
 /public/build/
 /public/hot
 /bootstrap/cache/*
-/storage/
+/storage/*.key
 /database/*.sqlite*
 /.phpunit.cache/
 /.phpunit.result.cache
+!/bootstrap/cache/.gitignore

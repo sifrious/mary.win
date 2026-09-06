@@ -10,11 +10,14 @@
                  it while still inside the tap. --}}
             <input class="flw__typing" type="text" x-ref="field"
                    aria-label="type a four letter word"
+                   aria-describedby="flw-keyboard-help"
                    autocomplete="off" autocorrect="off" autocapitalize="characters"
                    spellcheck="false" inputmode="text" enterkeyhint="go"
                    @beforeinput="onEdit($event)"
                    @input="onEditFallback($event)"
                    @keydown="onFieldKey($event)">
+
+            <p id="flw-keyboard-help" hidden>Press 1, 2, 3, or 4 to select a box from the left. Type a letter to replace the selected box.</p>
 
             <header class="flw__head">
                 <span class="flw__mark">FOUR·LETTER·WORDS</span>
@@ -33,7 +36,8 @@
                     <template x-for="(l, i) in letters" :key="i">
                         <button type="button" class="flw__box" tabindex="-1"
                                 :class="{ 'is-selected': cursor === i }"
-                                :aria-label="'letter ' + (i + 1)"
+                                :aria-label="'letter ' + (i + 1) + ', ' + (l || 'empty') + (cursor === i ? ', selected' : '')"
+                                :aria-current="cursor === i ? 'true' : null"
                                 @mousedown.prevent
                                 @click="select(i)" x-text="l"></button>
                     </template>
