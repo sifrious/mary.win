@@ -12,7 +12,7 @@ The proposed `sifrious/four-letter-words` application renders SuperNative screen
 
 ## Verified baseline
 
-The mary.win live route `/games/four-letter-words` is served by a Laravel Cloud prod deployment of commit `893869c12a48f172c30460a9e199a2390c4c08a0`, July 30, 2026. The current main and email-signup checkout lack that source. Recover application source with checksums before making a release branch. Never include environment secrets, sessions, uploads, runtime databases, caches, or vendor directories in source recovery.
+The mary.win live route `/games/four-letter-words` is served by a Laravel Cloud prod deployment of commit `893869c12a48f172c30460a9e199a2390c4c08a0`, July 30, 2026. The main branch lacked that source at investigation time. Recovery commit `c952b46` records source files and checksums; merge `9bf387a` joins the existing main history. Never include environment secrets, sessions, uploads, runtime databases, caches, or vendor directories in source recovery.
 
 Game source paths in that release:
 
@@ -45,6 +45,8 @@ NativePHP Mobile v4 supplies SuperNative. Pin an actual compatible release and t
 
 ## Current work
 
-Source recovery and web number selection are implemented locally in the isolated mary-win-game-work checkout on branch codex/mme-3958-live-game-recovery. The recovered baseline is commit c952b46. Five JavaScript tests, 166 PHP tests with 633 assertions, Vite build, and browser checks pass. Shared game API, regular auth, and the native app are planned work. No production deployment has occurred.
+Source recovery and web number selection were pushed to main at `2152951`. Five JavaScript tests, 166 PHP tests with 633 assertions, Vite build, and local browser checks pass. Dependency audits report zero vulnerabilities after constrained updates. Production deployment verification is pending.
+
+The MME-3959 branch implements anonymous version metadata and stateless run validation through the existing core. See `docs/four-letter-words-api.md`. Ten API tests pass. Durable account-bound uploads, dictionary distribution, regular auth, and the native app remain pending.
 
 Tracking: https://linear.app/sifirous/issue/MME-2369 and https://linear.app/sifirous/issue/MME-3949.
