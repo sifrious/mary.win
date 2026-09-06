@@ -1,0 +1,665 @@
+/* ============================================================
+   KITE — feature styles, built on the winrar design tokens.
+
+   winrar.css owns the chassis, type, plates, cards, buttons and
+   the light/dark token switch (data-theme on <html>). This sheet
+   only adds the kite-specific pieces (stat tiles, badges, word
+   clouds, the loading overlay, file lists) using those same tokens
+   so everything stays theme-aware and on-brand.
+   ============================================================ */
+
+/* ---- page header: title block + action buttons ---- */
+.k-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 26px;
+}
+
+.k-head__title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: var(--display-md);
+    line-height: 1;
+    color: var(--ink);
+    margin: 0 0 6px;
+}
+
+.k-head__sub {
+    color: var(--muted);
+    font-size: var(--text-caption-size);
+    letter-spacing: 0.04em;
+    margin: 0;
+}
+
+.k-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.k-actions form {
+    display: inline;
+    margin: 0;
+}
+
+/* ---- flash messages ---- */
+.k-alert {
+    border: 1px solid var(--line);
+    border-left-width: 4px;
+    background: var(--plate);
+    color: var(--ink);
+    padding: 12px 16px;
+    font-size: 12.5px;
+    margin-bottom: 18px;
+}
+
+.k-alert--success {
+    border-left-color: var(--aqua-bright);
+}
+
+.k-alert--error {
+    border-left-color: var(--pop);
+}
+
+.k-alert h4 {
+    margin: 0 0 6px;
+    font-size: 13px;
+}
+
+.k-alert pre {
+    background: var(--plate-2);
+    border: 1px solid var(--hair);
+    padding: 12px;
+    margin-top: 8px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* ---- badges ---- */
+.k-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    white-space: nowrap;
+}
+
+.k-badge--public {
+    color: var(--teal-mid);
+    border-color: var(--teal-mid);
+}
+
+.k-badge--private {
+    color: var(--pop);
+    border-color: var(--pop);
+}
+
+.k-badge--current {
+    color: var(--cta-fg);
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+/* ---- stat tiles (a compact plate) ---- */
+.k-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    margin-bottom: 26px;
+}
+
+.k-stat {
+    background: var(--plate);
+    border: 1px solid var(--line);
+    padding: 14px 16px;
+}
+
+.k-stat__label {
+    font-size: var(--text-label-size);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 8px;
+}
+
+.k-stat__value {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 1;
+    color: var(--ink);
+    margin: 0;
+}
+
+.k-stat__value--sm {
+    font-size: 15px;
+    font-family: var(--font-mono);
+    font-weight: 600;
+}
+
+/* ---- repository / reading-list card grid ---- */
+.k-grid {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.k-repo {
+    display: flex;
+    flex-direction: column;
+    background: var(--plate);
+    border: 1px solid var(--line);
+    transition: transform var(--dur) var(--ease);
+}
+
+.k-repo:hover {
+    transform: translateY(-2px);
+}
+
+.k-repo__bar {
+    height: 3px;
+    background: var(--rb);
+}
+
+.k-repo__body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+}
+
+.k-repo--current {
+    outline: 2px solid var(--accent);
+    outline-offset: -1px;
+}
+
+.k-repo__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.k-repo__name {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: var(--display-sm);
+    color: var(--ink);
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.k-repo__owner {
+    font-size: 11px;
+    color: var(--muted);
+    margin: -6px 0 0;
+}
+
+.k-repo__desc {
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--muted);
+    flex: 1;
+}
+
+.k-repo__meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11px;
+    color: var(--muted);
+    padding-top: 10px;
+    border-top: 1px dotted var(--hair);
+}
+
+.k-repo__foot {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* ---- record list (files, terms, meta) ---- */
+.k-list {
+    max-height: 380px;
+    overflow-y: auto;
+    display: grid;
+    gap: 2px;
+}
+
+.k-filerow {
+    padding: 10px 4px;
+    border-bottom: 1px dotted var(--hair);
+}
+
+.k-filerow:last-child {
+    border-bottom: none;
+}
+
+.k-filerow__path {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink);
+    word-break: break-all;
+}
+
+.k-filerow__meta {
+    display: flex;
+    gap: 14px;
+    font-size: 10.5px;
+    color: var(--muted);
+    margin-top: 3px;
+}
+
+/* the leading W mark, cycled by slot like the home page record list */
+.k-w {
+    font-weight: 600;
+    margin-right: 8px;
+}
+.k-w-1 { color: var(--wcol-1); }
+.k-w-2 { color: var(--wcol-2); }
+.k-w-3 { color: var(--wcol-3); }
+.k-w-4 { color: var(--wcol-4); }
+.k-w-5 { color: var(--wcol-5); }
+.k-w-6 { color: var(--wcol-6); }
+
+/* ---- search input ---- */
+.k-search {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--plate);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 12px;
+}
+
+.k-search::placeholder {
+    color: var(--muted);
+}
+
+.k-search:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+}
+
+.k-search-stats {
+    margin-top: 8px;
+    font-size: 11px;
+    color: var(--muted);
+}
+
+/* ---- checkbox select list ---- */
+.k-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+    border-bottom: 1px dotted var(--hair);
+}
+
+.k-check:last-child {
+    border-bottom: none;
+}
+
+.k-check input[type='checkbox'] {
+    margin-top: 3px;
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+    flex: none;
+}
+
+.k-check__name {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.k-check__desc {
+    font-size: 12px;
+    color: var(--muted);
+    margin: 4px 0 2px;
+}
+
+.k-check__meta {
+    font-size: 10.5px;
+    color: var(--muted);
+    font-family: var(--font-mono);
+}
+
+/* ---- empty state ---- */
+.k-empty {
+    border: 1px dashed var(--leader);
+    padding: 48px 24px;
+    text-align: center;
+    color: var(--muted);
+}
+
+.k-empty__title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: var(--display-sm);
+    color: var(--ink);
+    margin: 0 0 8px;
+}
+
+.k-empty__text {
+    font-size: 12.5px;
+    line-height: 1.7;
+    margin: 0 auto 20px;
+    max-width: 40ch;
+}
+
+/* ---- word cloud (terms + vocabulary) ---- */
+.k-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.k-cloud-controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 12px 0 18px;
+}
+
+.k-cloud-controls .k-search {
+    flex: 1;
+    min-width: 200px;
+    max-width: 320px;
+}
+
+.k-filterbtns {
+    display: flex;
+    gap: 8px;
+}
+
+.k-filter {
+    padding: 7px 12px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color var(--dur) var(--ease);
+}
+
+.k-filter:hover {
+    background: var(--plate-2);
+}
+
+.k-filter.is-active {
+    background: var(--accent);
+    color: var(--cta-fg);
+    border-color: var(--accent);
+}
+
+.k-term {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    background: var(--plate);
+    border: 1px solid var(--hair);
+    border-bottom-width: 3px;
+    font-family: var(--font-mono);
+    transition: transform var(--dur) var(--ease);
+}
+
+.k-term:hover {
+    transform: translateY(-2px);
+}
+
+.k-term__name {
+    font-weight: 600;
+    font-size: 12.5px;
+    color: var(--ink);
+}
+
+.k-term__meta {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-size: 10px;
+    color: var(--muted);
+}
+
+.k-term__count {
+    background: var(--plate-2);
+    padding: 1px 6px;
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.k-term__lang {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 9px;
+}
+
+/* language accent — reuses the spectrum W-mark colors */
+.k-term[data-language='php'] { border-bottom-color: var(--wcol-1); }
+.k-term[data-language='javascript'] { border-bottom-color: var(--wcol-3); }
+.k-term[data-language='typescript'] { border-bottom-color: var(--wcol-5); }
+.k-term[data-language='python'] { border-bottom-color: var(--wcol-4); }
+.k-term[data-language='java'] { border-bottom-color: var(--wcol-2); }
+.k-term[data-language='ruby'] { border-bottom-color: var(--wcol-6); }
+
+/* new (unfamiliar) terms get the rationed pop and a flag */
+.k-term--new {
+    border-color: var(--pop);
+    border-bottom-color: var(--pop);
+    border-width: 2px;
+    border-bottom-width: 3px;
+}
+
+.k-term__new {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--pop);
+    color: #fff;
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 1px 5px;
+}
+
+.k-term--high .k-term__name { font-size: 14px; }
+.k-term--low { opacity: 0.75; }
+
+.k-legend {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding-top: 14px;
+    margin-top: 18px;
+    border-top: 1px solid var(--hair);
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.k-legend__dot {
+    display: inline-block;
+    width: 24px;
+    text-align: center;
+    color: var(--pop);
+    font-weight: 700;
+    font-size: 9px;
+}
+
+/* ---- kite loading overlay ---- */
+.k-loading {
+    position: fixed;
+    inset: 0;
+    background: rgba(12, 31, 30, 0.72);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.k-loading__box {
+    background: var(--plate);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-pop);
+    padding: 40px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+
+.k-loading__kite {
+    animation: k-spin 2s linear infinite;
+    margin: 0 auto 20px;
+    width: 56px;
+    height: 56px;
+}
+
+@keyframes k-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.k-loading__title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 20px;
+    color: var(--ink);
+    margin: 0 0 6px;
+}
+
+.k-loading__status {
+    color: var(--muted);
+    font-size: 12.5px;
+    margin: 0 0 20px;
+}
+
+.k-progress {
+    height: 6px;
+    background: var(--plate-2);
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.k-progress__fill {
+    height: 100%;
+    width: 0;
+    background: var(--rb);
+    transition: width 0.3s ease;
+}
+
+.k-progress__count {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+}
+
+/* ---- misc ---- */
+.k-section {
+    margin-bottom: 34px;
+}
+
+.k-section__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+}
+
+.k-section__title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: var(--display-sm);
+    color: var(--ink);
+    margin: 0;
+}
+
+.k-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--plate-2);
+    border: 1px solid var(--hair);
+    margin-bottom: 18px;
+    font-size: 12px;
+}
+
+.k-meta-grid dt {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.k-meta-grid dd {
+    margin: 3px 0 0;
+    color: var(--ink);
+    font-family: var(--font-mono);
+}
+
+/* ---- kite masthead nav (active state on top of winrar links) ---- */
+.wr-nav a { color: var(--muted); }
+.wr-nav a:hover { color: var(--accent); }
+.wr-nav a.is-active { color: var(--accent); text-decoration: underline; }
+
+.k-userbar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: var(--text-nav-size);
+    letter-spacing: 0.06em;
+}
+
+.k-userbar__name { color: var(--muted); }
+
+.k-logout {
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: background-color var(--dur) var(--ease);
+}
+
+.k-logout:hover { background: var(--plate-2); }
+
+@media (max-width: 680px) {
+    .k-head { flex-direction: column; align-items: flex-start; }
+    .k-cloud-controls { flex-direction: column; align-items: stretch; }
+    .k-cloud-controls .k-search { max-width: none; }
+}
