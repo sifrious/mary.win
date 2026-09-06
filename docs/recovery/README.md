@@ -12,4 +12,4 @@ MME-3958 changes the composer only, preserving the PHP rules and dictionary. `np
 
 Verified locally: the full recovered PHP suite passes 166 tests with 633 assertions, including 37 Four Letter Words core tests and nine game feature tests. Five JavaScript interaction tests and the Vite build also pass. Browser keyboard checks confirm third-box highlighting and CARE to CARD through number selection. Physical phone keyboards have not been checked.
 
-Before release, constrained dependency updates fixed the reported npm and Composer advisories. Both audits report zero vulnerabilities. The full PHP suite, JavaScript tests, and asset build pass with the updated locks. Production deployment verification follows the main push.
+Before release, constrained dependency updates fixed the reported npm and Composer advisories. Both audits report zero vulnerabilities. The full PHP suite, JavaScript tests, and asset build pass with the updated locks. Cloud deployed `2152951` from main on 2026-09-06. Live browser checks confirmed third-tile highlighting and CARE to CARD at streak two. The Cloud environment explicitly tracks main.
