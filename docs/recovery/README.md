@@ -2,7 +2,7 @@
 
 Recovered from mary.win deployment `depl-a2626cb2-47f1-4aeb-a0a3-5a665bcf3afe`, prod commit `893869c12a48f172c30460a9e199a2390c4c08a0`. Current GitHub branches do not contain that commit. This independent root records the recovered application rather than claiming ancestry that cannot be verified. `docs/recovery/provenance.json` records the original file hashes.
 
-Excluded environment files, credentials, dependencies, runtime databases, uploads, caches, and compiled assets. Recreate runtime directories and install locked dependencies locally. The original source recovery remains separate from implementation edits. Nothing has been deployed from this branch.
+Excluded environment files, credentials, dependencies, runtime databases, uploads, caches, and compiled assets. Recreate runtime directories and install locked dependencies locally. The original source recovery remains separate from implementation edits. The recovery history is joined to the existing main history by merge commit `9bf387a`, preserving both histories.
 
 ## Local verification
 
@@ -12,4 +12,4 @@ MME-3958 changes the composer only, preserving the PHP rules and dictionary. `np
 
 Verified locally: the full recovered PHP suite passes 166 tests with 633 assertions, including 37 Four Letter Words core tests and nine game feature tests. Five JavaScript interaction tests and the Vite build also pass. Browser keyboard checks confirm third-box highlighting and CARE to CARD through number selection. Physical phone keyboards have not been checked.
 
-The recovered npm lock reports dependency advisories. Triage those separately before releasing the recovered application; the keyboard change does not update dependencies. No production deployment has occurred.
+Before release, constrained dependency updates fixed the reported npm and Composer advisories. Both audits report zero vulnerabilities. The full PHP suite, JavaScript tests, and asset build pass with the updated locks. Production deployment verification follows the main push.

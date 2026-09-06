@@ -12,4 +12,4 @@ See `docs/four-letter-words-plan.md` for the shared game API and mobile extracti
 
 Install the locked Composer and npm dependencies, copy `.env.example` to `.env`, and generate a local application key. Run `php artisan test`, `npm run test:game-input`, and `npm run build` before releasing changes.
 
-The application license does not establish the provenance or redistribution rights of `resources/words.txt`. That investigation remains open before mobile distribution.
+The application license does not establish the provenance or redistribution rights of `packages/four-letter-words/resources/words.txt`. That investigation remains open before mobile distribution.
