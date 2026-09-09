@@ -47,6 +47,6 @@ NativePHP Mobile v4 supplies SuperNative. Pin an actual compatible release and t
 
 Source recovery and web number selection were pushed to main at `2152951`. Five JavaScript tests, 166 PHP tests with 633 assertions, Vite build, and local browser checks pass. Dependency audits report zero vulnerabilities after constrained updates. Cloud successfully deployed `2152951` from main in deployment `depl-a2af1e40-a257-47cd-8214-b546c760ffcd`. Live browser checks confirmed third-tile highlighting and CARE to CARD at streak two. The environment now explicitly tracks main.
 
-The MME-3959 branch implements anonymous version metadata and stateless run validation through the existing core. See `docs/four-letter-words-api.md`. Ten API tests pass. Durable account-bound uploads, dictionary distribution, regular auth, and the native app remain pending.
+The MME-3959 branch now implements metadata, replay validation, account-owned run uploads, safe retries, and server-rendered browser play with explicit saving and resume. The shared Accounts Client verifies tokens with mary.is. See `docs/four-letter-words-api.md`. Dictionary distribution and the native app remain pending. GitHub Socialite and Passport are already deployed at mary.is; registration remains disabled while outbound mail is unconfigured.
 
 Tracking: https://linear.app/sifirous/issue/MME-2369 and https://linear.app/sifirous/issue/MME-3949.

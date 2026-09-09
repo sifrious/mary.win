@@ -1,4 +1,5 @@
 <div>
+    <noscript><p><a href="{{ route('games.flw.play') }}">Play Four Letter Words without JavaScript</a></p></noscript>
     <div class="flw" wire:ignore x-data="flwComposer()" x-init="init()" @keydown.window="onKey($event)">
         <div class="wr-rainbow" aria-hidden="true"></div>
 
@@ -21,6 +22,7 @@
 
             <header class="flw__head">
                 <span class="flw__mark">FOUR·LETTER·WORDS</span>
+                <a href="{{ route('games.flw.play') }}">Start a game with account saves</a>
                 <a href="{{ route('home') }}" class="flw__back">← mary.win</a>
             </header>
 
@@ -58,11 +60,7 @@
                     <template x-for="w in log" :key="w"><li x-text="w"></li></template>
                 </ol>
 
-                @auth
-                    <p class="flw__note">signed in — saved best streaks arrive in the next update.</p>
-                @else
-                    <p class="flw__note"><a href="{{ route('register') }}">sign up</a> to keep your best streak.</p>
-                @endauth
+                <p class="flw__note"><a href="{{ route('games.flw.play') }}">Start a game with account saves</a></p>
 
                 <button type="button" class="flw__again" @mousedown.prevent @click="playAgain()">play again →</button>
             </main>

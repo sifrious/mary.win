@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Games\BrowserGameController;
 use App\Http\Controllers\RepositoryController;
 use App\Http\Controllers\RepositoryFilesController;
+use App\Http\Middleware\ProtectGameAccountResponses;
 use App\Livewire\Games\FourLetterWords;
 use App\Livewire\Games\LicensePlates;
 use App\Livewire\Settings\Appearance;
@@ -153,3 +155,15 @@ Route::prefix('kite')->name('kite.')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::middleware(['throttle:60,1', ProtectGameAccountResponses::class])->group(function () {
+    Route::get('/games/four-letter-words/play', [BrowserGameController::class, 'show'])->block(60, 10)->name('games.flw.play');
+    Route::post('/games/four-letter-words/play', [BrowserGameController::class, 'submit'])->block(60, 10)->name('games.flw.submit');
+    Route::post('/games/four-letter-words/restart', [BrowserGameController::class, 'restart'])->block(60, 10)->name('games.flw.restart');
+    Route::post('/games/four-letter-words/save', [BrowserGameController::class, 'save'])->block(60, 10)->name('games.flw.save');
+    Route::get('/games/four-letter-words/saved', [BrowserGameController::class, 'saved'])->block(60, 10)->name('games.flw.saved');
+    Route::post('/games/four-letter-words/saved/{run}', [BrowserGameController::class, 'resume'])->whereUuid('run')->block(60, 10)->name('games.flw.resume');
+    Route::get('/auth/mary', [BrowserGameController::class, 'login'])->block(60, 10)->name('games.flw.login');
+    Route::get('/auth/mary/callback', [BrowserGameController::class, 'callback'])->block(60, 10)->name('games.flw.callback');
+    Route::post('/auth/mary/logout', [BrowserGameController::class, 'logout'])->block(60, 10)->name('games.flw.logout');
+});

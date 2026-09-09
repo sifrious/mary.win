@@ -6,7 +6,7 @@
 | field | type | notes |
 |-------|------|-------|
 | id | identifier | key |
-| player_id | reference → host-site account, nullable | null = anonymous player |
+| player_id | opaque mary.is account ID, nullable | null = anonymous player |
 
 Key: `id`. Source: R2 (a run begins), R8 (start again = new run), R22/R23 (a signed-in player's runs).
 
@@ -50,5 +50,5 @@ Key: `word`. Source: R2–R4, R16. Reference data — loaded once, read-only, ne
 - C3: Within a Run, the Plays' positions are exactly 1..n — no gaps, no duplicates.
 - C4: Within a Run, no word appears in more than one Play. *(R6 — a repeat never becomes a play; it ends the run instead.)*
 - C5: Within a Run, the word at position p+1 differs from the word at position p in exactly one of the four positions. *(R3 — the first word, position 1, has no predecessor and is unconstrained beyond C1/C2.)*
-- C6: Every non-null Run.player_id references an existing host-site account.
+- C6: Every non-null Run.player_id identifies the active mary.is account verified for this product. No cross-database foreign key is used.
 - C7: Only Runs with a non-null player_id are retained beyond the sitting in which they occur. *(Anonymous runs are session-scoped.)*
