@@ -4,7 +4,7 @@ The shared implementation remains in `packages/four-letter-words/src/Core/`. `ap
 
 ## Version and validation endpoints
 
-`GET /api/v1/four-letter-words/metadata` returns the rules version and SHA-256 of the canonical dictionary bytes. The dictionary license remains unresolved; this API publishes no downloadable dictionary artifact.
+`GET /api/v1/four-letter-words/metadata` returns the rules version and SHA-256 of the canonical dictionary bytes. The exact dictionary matches the lowercase four-letter subset of BSD web2. `packages/four-letter-words/docs/DICTIONARY.md` records the source notice and reproduction. Mobile distribution approval remains open; this API publishes no downloadable dictionary artifact.
 
 `POST /api/v1/four-letter-words/validate-run` accepts `rules_version`, `dictionary_version`, and a chronological `submissions` array. Each entry must normalize to four ASCII letters. An empty array represents a game before the first word. The response contains `status`, `streak`, `accepted_words`, and `loss_reason`. The last submission may lose. Submissions after a loss or malformed words return 422. Unsupported versions return 409 with current metadata. Requests allow at most 5,000 submissions and 30 requests per minute. These transport limits do not change game rules.
 
