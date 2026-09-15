@@ -339,6 +339,33 @@
         .flw__note { font-size: 0.82rem; color: var(--muted); margin: 0.4rem 0 0; }
         .flw__note a { color: var(--pop); }
 
+        .flw__interest {
+            flex: 0 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            gap: 0.7rem;
+            padding-top: 1.5rem;
+            font-size: 0.68rem;
+            letter-spacing: 0.13em;
+            color: var(--muted);
+        }
+        .flw__interest a {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration-color: color-mix(in oklab, var(--accent) 45%, transparent);
+            text-underline-offset: 0.24em;
+        }
+        .flw__interest a:hover { color: var(--pop); }
+
+        @media (max-width: 420px) {
+            .flw__interest {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.35rem;
+            }
+        }
+
         @media (prefers-reduced-motion: reduce) {
             .flw__box, .flw__submit, .flw__again { transition: none; }
         }

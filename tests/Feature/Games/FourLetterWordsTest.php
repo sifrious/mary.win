@@ -11,6 +11,9 @@ it('R1 renders the game page', function () {
 
     $this->get('/games/four-letter-words')
         ->assertOk()
+        ->assertSeeInOrder(['FOUR·LETTER·WORDS', '← mary.win'])
+        ->assertSee('SIGN UP FOR EMAILS →')
+        ->assertSee('href="https://clever.mary.win/#subscribe"', false)
         ->assertSeeLivewire(FourLetterWords::class);
 });
 
