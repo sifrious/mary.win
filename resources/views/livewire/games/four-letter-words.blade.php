@@ -22,7 +22,6 @@
 
             <header class="flw__head">
                 <span class="flw__mark">FOUR·LETTER·WORDS</span>
-                <a href="{{ route('games.flw.play') }}">Start a game with account saves</a>
                 <a href="{{ route('home') }}" class="flw__back">← mary.win</a>
             </header>
 
@@ -64,6 +63,11 @@
 
                 <button type="button" class="flw__again" @mousedown.prevent @click="playAgain()">play again →</button>
             </main>
+
+            <footer class="flw__interest">
+                <span>LIKE SMALL GAMES?</span>
+                <a href="https://clever.mary.win/#subscribe">SIGN UP FOR EMAILS →</a>
+            </footer>
         </div>
     </div>
 </div>
